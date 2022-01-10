@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:system_idle/system_idle.dart';
@@ -57,12 +58,16 @@ class _SystemIdleExampleState extends State<SystemIdleExample> {
       appBar: AppBar(
         title: const Text('System Idle Example'),
       ),
-      body: Center(
-        child: Text(
+      body: Column(children: [
+        Text(
           'Is idle state: $_isIdle',
           style: const TextStyle(fontSize: 40.0),
         ),
-      ),
+        Text(
+          Platform.resolvedExecutable,
+          style: const TextStyle(fontSize: 40.0),
+        ),
+      ]),
     );
   }
 }
