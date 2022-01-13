@@ -98,11 +98,11 @@ namespace {
 
       // Calculate the time elapsed in seconds.
       DWORD te = ::GetTickCount();
-      int elapsed = (te - li.dwTime) / 10;
+      int elapsed = (te - li.dwTime) / 1000;
 
       // Test against a preset timeout period in
       // seconds.
-      if(idle_time < elapsed) {
+      if(idle_time  < elapsed) {
         is_idle = true;
       }
 
