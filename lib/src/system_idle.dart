@@ -41,11 +41,9 @@ class SystemIdle {
         final execFile = File(Platform.resolvedExecutable);
         final scriptFile = File(p.join(execFile.parent.path, 'idle'));
 
-        if (!scriptFile.existsSync()) {
-          final idleScript = _generateIdleScript(time);
-          await scriptFile.writeAsString(idleScript);
-          await Process.start('chmod', ['+x', scriptFile.path]);
-        }
+        final idleScript = _generateIdleScript(time);
+        await scriptFile.writeAsString(idleScript);
+        await Process.start('chmod', ['+x', scriptFile.path]);
 
         Process.run(scriptFile.path, []);
       } catch (e) {
