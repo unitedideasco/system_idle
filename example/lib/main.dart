@@ -32,7 +32,7 @@ class SystemIdleExample extends StatefulWidget {
 }
 
 class _SystemIdleExampleState extends State<SystemIdleExample> {
-  final _systemIdle = SystemIdle();
+  final _systemIdle = SystemIdle.instance;
 
   bool _isIdle = false;
 
@@ -45,11 +45,9 @@ class _SystemIdleExampleState extends State<SystemIdleExample> {
   void _configureSystemIdle() async {
     await _systemIdle.initialize(time: 10);
 
-    Timer.periodic(const Duration(seconds: 1), (timer) async {
-      final idle = await _systemIdle.isIdle();
-
-      setState(() => _isIdle = idle);
-    });
+    _systemIdle.onIdleStateChanged.listen(
+      (isIdle) => setState(() => _isIdle = isIdle),
+    );
   }
 
   @override

@@ -24,6 +24,8 @@
 #include <psapi.h>
 #include <winuser.h>
 #include <gdiplus.h>
+#include <thread>
+
 #pragma comment(lib,"gdiplus.lib")
 
 
@@ -47,7 +49,6 @@ namespace {
           std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result);
   };
 
-
   // static
   void SystemIdlePlugin::RegisterWithRegistrar(
       flutter::PluginRegistrarWindows *registrar) {
@@ -64,11 +65,11 @@ namespace {
         });
 
     registrar->AddPlugin(std::move(plugin));
+
   }
 
   SystemIdlePlugin::SystemIdlePlugin() {}
   SystemIdlePlugin::~SystemIdlePlugin() {}
-
 
   int GetIdleTimeArgument(const flutter::MethodCall<>& method_call) {
     int idle_time;
