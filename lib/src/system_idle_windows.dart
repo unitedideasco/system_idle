@@ -3,7 +3,7 @@ import 'dart:ffi';
 
 import 'package:ffi/ffi.dart';
 import 'package:system_idle/src/system_idle.dart';
-import 'package:win32/winrt.dart';
+import 'package:win32/win32.dart';
 
 class SystemIdleCheckerWindows extends SystemIdleChecker {
   final _controller = StreamController<bool>.broadcast();
