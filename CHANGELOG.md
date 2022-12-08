@@ -1,3 +1,7 @@
+## 0.1.0
+
+* Refactor & split code better between platforms
+
 ## 0.0.1
 
-* TODO: Describe initial release.
+* Initial working version of the package
