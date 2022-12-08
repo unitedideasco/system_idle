@@ -11,29 +11,27 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+# System idle
+## A simple package for checking if computer was idle for given amount of time.
+<br>
 
-## Features
+| Platform | Status      | 
+|----------|-------------|
+| Windows  | ✅ Working | 
+| Linux    | ✅ Working |  
+| macOS    | ✅ Working | 
+<br>
+## How to use it
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
+### Initialize with desired time, after which computer is considered idle.
 ```dart
-const like = 'sample';
+await SystemIdle.instance.initialize(time: 10);
 ```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+In given example idle time is set to 10 seconds. If no mouse/keyboard input were detected after this time idle state will be emited.
+<br><br>
+### Listening to idle state changes
+```dart
+SystemIdle.instance.onIdleStateChanged.listen(
+    (isIdle) => setState(() => _isIdle = isIdle),
+);
+```
