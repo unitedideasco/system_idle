@@ -1,3 +1,6 @@
+## 0.2.1
+* Bump win32 version to 3.1.3
+
 ## 0.2.0
 
 * Cleaned up of the code
