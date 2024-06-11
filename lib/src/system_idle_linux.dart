@@ -10,6 +10,7 @@ const _idleFilePath = '/tmp/.is_idle';
 
 class SystemIdleCheckerLinux extends SystemIdleChecker {
   final _controller = StreamController<bool>.broadcast();
+  var lastIsIdle = false;
 
   @override
   Future<void> initialize({int time = defaultIdleTime}) async {
@@ -27,19 +28,20 @@ class SystemIdleCheckerLinux extends SystemIdleChecker {
       await scriptFile.writeAsString(idleScript);
       await Process.start('chmod', ['+x', scriptFile.path]);
 
-      await Process.run(scriptFile.path, []);
-
-      Timer.periodic(const Duration(seconds: 1), (timer) async {
-        FileWatcher(_idleFilePath).events.listen((event) {
-          if (event.type == ChangeType.REMOVE) {
-            _controller.sink.add(false);
-            return;
-          }
-
+      Process.run(scriptFile.path, []);
+      FileWatcher(_idleFilePath).events.listen((event) {
+        if (event.type == ChangeType.REMOVE) {
+          _controller.sink.add(false);
+          return;
+        }
+        Timer.periodic(const Duration(seconds: 1), (timer) async {
           final contents = File(_idleFilePath).readAsStringSync();
           final isIdle = contents.contains('true');
 
-          _controller.sink.add(isIdle);
+          if (lastIsIdle != isIdle) {
+            _controller.sink.add(isIdle);
+            lastIsIdle = isIdle;
+          }
         });
       });
     } catch (e) {
