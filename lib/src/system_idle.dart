@@ -14,7 +14,7 @@ const defaultIdleDuration = Duration(minutes: 5);
 
 abstract class SystemIdleChecker {
   /// {@template system_idle_initialize}
-  /// Initializes SystemIdle plugin with given time in seconds
+  /// Initializes SystemIdle plugin with given time
   /// If time is not provided the default time is used;
   /// {@endtemplate}
   Future<void> initialize({required Duration duration});
