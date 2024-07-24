@@ -32,4 +32,10 @@ class SystemIdle {
   /// {@macro system_idle_on_idle_state_changed}
   Stream<bool> get onIdleStateChanged =>
       _systemIdleChecker.onIdleStateChanged();
+
+  /// {@macro system_idle_get_idle_duration}
+  Future<Duration> getIdleDuration() => _systemIdleChecker.getIdleDuration();
+
+  /// {@macro dispose}
+  void dispose() => _systemIdleChecker.dispose();
 }

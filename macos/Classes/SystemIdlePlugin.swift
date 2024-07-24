@@ -23,18 +23,7 @@ public class SystemIdlePlugin: NSObject, FlutterPlugin {
     }
 
     private func isIdle(idleTime: Int?) -> Bool {
-
-        var isIdle = false
-
-        var lastEvent:CFTimeInterval = 0
-        lastEvent = CGEventSource.secondsSinceLastEventType(CGEventSourceStateID.hidSystemState,
-                                                            eventType: CGEventType(rawValue: ~0)!)
-
-        if(Int(lastEvent) > idleTime!) {
-            isIdle = true
-        }
-
-        return isIdle;
+        return getIdleTime > idleTime;
     }
 
     private func getIdleTime() -> Int {

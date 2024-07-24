@@ -12,6 +12,14 @@ class SystemIdleCheckerWindows extends SystemIdleChecker {
   late final _inputInfo = _arena<win32.LASTINPUTINFO>();
 
   bool _isIdle = false;
+  Timer? _timer;
+
+  @override
+  void dispose() {
+    _controller.close();
+    _arena.releaseAll();
+    _timer?.cancel();
+  }
 
   @override
   Future<Duration> getIdleDuration() async {
@@ -24,14 +32,10 @@ class SystemIdleCheckerWindows extends SystemIdleChecker {
   @override
   Future<void> initialize({required Duration duration}) async {
     _inputInfo.ref.cbSize = sizeOf<win32.LASTINPUTINFO>();
-
-    Timer.periodic(const Duration(seconds: 1), (timer) async {
-      final ticks = getTickCountFunc();
-      win32.GetLastInputInfo(_inputInfo);
-
-      final idleFor = (ticks - _inputInfo.ref.dwTime);
-
-      if (idleFor > duration.inMilliseconds) {
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
+      final idleFor = await getIdleDuration();
+      if (idleFor > duration) {
         if (_isIdle) return;
         _isIdle = true;
         _controller.sink.add(true);

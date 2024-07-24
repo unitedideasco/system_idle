@@ -1,5 +1,6 @@
 ## 1.1.0
 * Added `Future<Duration> getIdleDuration()`
+* Made `initialize` idempotent so you can call it again with a different duration
 
 ## 1.0.0
 * Change `initialize` to take a `Duration` instead of integer seconds
