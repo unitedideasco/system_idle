@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:system_idle/src/system_idle.dart';
+
+import "interface.dart";
 
 class SystemIdleCheckerMacOS extends SystemIdleChecker {
   final _controller = StreamController<bool>.broadcast();
@@ -22,6 +23,12 @@ class SystemIdleCheckerMacOS extends SystemIdleChecker {
 
       _controller.sink.add(isIdle);
     });
+  }
+
+  @override
+  Future<Duration> getIdleDuration() async {
+    final seconds = await _channel.invokeMethod("getIdleTime");
+    return Duration(seconds: seconds);
   }
 
   @override

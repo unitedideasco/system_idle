@@ -3,10 +3,12 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
-import 'package:system_idle/src/system_idle.dart';
 import 'package:watcher/watcher.dart';
 
+import "interface.dart";
+
 const _idleFilePath = '/tmp/.is_idle';
+const _idleTimePath = '/tmp/idle_time';
 
 class SystemIdleCheckerLinux extends SystemIdleChecker {
   final _controller = StreamController<bool>.broadcast();
@@ -45,12 +47,20 @@ class SystemIdleCheckerLinux extends SystemIdleChecker {
         });
       });
     } catch (e) {
-      throw const SystemIdleException(message: unknownError);
+      throw const SystemIdleException(message: "An unknown error occurred");
     }
   }
 
   @override
   Stream<bool> onIdleStateChanged() => _controller.stream;
+
+  @override
+  Future<Duration> getIdleDuration() async {
+    final file = File(_idleTimePath);
+    final contents = await file.readAsString();
+    final seconds = int.parse(contents);
+    return Duration(seconds: seconds);
+  }
 
   String _generateIdleScript(int idleTime) {
     return '''
@@ -60,6 +70,7 @@ idleloop() {
     touch /tmp/.input
     touch /tmp/.last_input
     touch /tmp/.is_idle
+    touch /tmp/.idle_time
     echo "false" > /tmp/.is_idle
 
     cmd='stat --printf="%s"'
@@ -77,6 +88,7 @@ idleloop() {
             t=0     # resets \$t
         fi
 
+        echo \$t > /tmp/.idle_time
         mv /tmp/.input /tmp/.last_input -f
 
         if [ \$t -ge \$idletime ] && [[ \$a == "2" ]]
