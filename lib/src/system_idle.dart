@@ -10,14 +10,14 @@ const notInitialized = 'Plugin has not been initialized. Call initialize first';
 const systemReturnedNull = 'System returned null value';
 const unknownError = 'Unknown error';
 
-const defaultIdleTime = 300;
+const defaultIdleDuration = Duration(minutes: 5);
 
 abstract class SystemIdleChecker {
   /// {@template system_idle_initialize}
-  /// Initializes SystemIdle plugin with given time in seconds
+  /// Initializes SystemIdle plugin with given time
   /// If time is not provided the default time is used;
   /// {@endtemplate}
-  Future<void> initialize({int time = defaultIdleTime});
+  Future<void> initialize({required Duration duration});
 
   /// {@template system_idle_on_idle_state_changed}
   /// Returns a bool stream with changes of the idle state
@@ -50,8 +50,8 @@ class SystemIdle {
   late SystemIdleChecker _systemIdleChecker;
 
   /// {@macro system_idle_initialize}
-  Future<void> initialize({int time = defaultIdleTime}) =>
-      _systemIdleChecker.initialize(time: time);
+  Future<void> initialize({Duration duration = defaultIdleDuration}) =>
+      _systemIdleChecker.initialize(duration: duration);
 
   /// {@macro system_idle_on_idle_state_changed}
   Stream<bool> get onIdleStateChanged =>
