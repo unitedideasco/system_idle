@@ -9,11 +9,11 @@ class SystemIdleCheckerMacOS extends SystemIdleChecker {
   static const _channel = MethodChannel('unitedideas.co/system_idle');
 
   @override
-  Future<void> initialize({int time = defaultIdleTime}) async {
+  Future<void> initialize({required Duration duration}) async {
     Timer.periodic(const Duration(seconds: 1), (timer) async {
       final isIdle = await _channel.invokeMethod<bool>(
         'isIdle',
-        <String, Object>{'idleTime': time},
+        <String, Object>{'idleTime': duration.inSeconds},
       );
 
       if (isIdle == null) {

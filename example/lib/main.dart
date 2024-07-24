@@ -42,7 +42,7 @@ class _SystemIdleExampleState extends State<SystemIdleExample> {
   }
 
   void _configureSystemIdle() async {
-    await _systemIdle.initialize(time: 10);
+    await _systemIdle.initialize(duration: const Duration(seconds: 10));
 
     _systemIdle.onIdleStateChanged.listen(
       (isIdle) => setState(() => _isIdle = isIdle),

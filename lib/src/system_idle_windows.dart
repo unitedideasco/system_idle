@@ -11,7 +11,7 @@ class SystemIdleCheckerWindows extends SystemIdleChecker {
   bool _isIdle = false;
 
   @override
-  Future<void> initialize({int time = defaultIdleTime}) async {
+  Future<void> initialize({required Duration duration}) async {
     final inputInfo = _arena<win32.LASTINPUTINFO>();
     inputInfo.ref.cbSize = sizeOf<win32.LASTINPUTINFO>();
 
@@ -19,9 +19,9 @@ class SystemIdleCheckerWindows extends SystemIdleChecker {
       final ticks = getTickCountFunc();
       win32.GetLastInputInfo(inputInfo);
 
-      final idleFor = (ticks - inputInfo.ref.dwTime) / 1000;
+      final idleFor = (ticks - inputInfo.ref.dwTime);
 
-      if (idleFor > time) {
+      if (idleFor > duration.inMilliseconds) {
         if (_isIdle) return;
         _isIdle = true;
         _controller.sink.add(true);

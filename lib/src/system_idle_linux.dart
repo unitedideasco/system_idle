@@ -13,7 +13,7 @@ class SystemIdleCheckerLinux extends SystemIdleChecker {
   var lastIsIdle = false;
 
   @override
-  Future<void> initialize({int time = defaultIdleTime}) async {
+  Future<void> initialize({required Duration duration}) async {
     try {
       Process.run('killall', ['-9', 'idle']);
     } catch (_) {
@@ -24,7 +24,7 @@ class SystemIdleCheckerLinux extends SystemIdleChecker {
       final execFile = File(Platform.resolvedExecutable);
       final scriptFile = File(p.join(execFile.parent.path, 'idle'));
 
-      final idleScript = _generateIdleScript(time);
+      final idleScript = _generateIdleScript(duration.inSeconds);
       await scriptFile.writeAsString(idleScript);
       await Process.start('chmod', ['+x', scriptFile.path]);
 
@@ -61,7 +61,7 @@ idleloop() {
     touch /tmp/.last_input
     touch /tmp/.is_idle
     echo "false" > /tmp/.is_idle
-    
+
     cmd='stat --printf="%s"'
     idletime=$idleTime
     a=2
@@ -69,7 +69,7 @@ idleloop() {
     while true
     do
         timeout 1 xinput test-xi2 --root > /tmp/.input
-            
+
         if [[ `eval \$cmd /tmp/.input` == `eval \$cmd /tmp/.last_input` ]]
         then
             let t++ # increases \$t by 1
