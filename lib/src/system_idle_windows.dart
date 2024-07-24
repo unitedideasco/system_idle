@@ -2,26 +2,40 @@ import 'dart:async';
 import 'dart:ffi';
 
 import 'package:ffi/ffi.dart';
-import 'package:system_idle/src/system_idle.dart';
 import 'package:win32/win32.dart' as win32;
+
+import "interface.dart";
 
 class SystemIdleCheckerWindows extends SystemIdleChecker {
   final _controller = StreamController<bool>.broadcast();
   final _arena = Arena();
+  late final _inputInfo = _arena<win32.LASTINPUTINFO>();
+
   bool _isIdle = false;
+  Timer? _timer;
+
+  @override
+  void dispose() {
+    _controller.close();
+    _arena.releaseAll();
+    _timer?.cancel();
+  }
+
+  @override
+  Future<Duration> getIdleDuration() async {
+    final ticks = getTickCountFunc();
+    win32.GetLastInputInfo(_inputInfo);
+    final idleFor = ticks - _inputInfo.ref.dwTime;
+    return Duration(milliseconds: idleFor);
+  }
 
   @override
   Future<void> initialize({required Duration duration}) async {
-    final inputInfo = _arena<win32.LASTINPUTINFO>();
-    inputInfo.ref.cbSize = sizeOf<win32.LASTINPUTINFO>();
-
-    Timer.periodic(const Duration(seconds: 1), (timer) async {
-      final ticks = getTickCountFunc();
-      win32.GetLastInputInfo(inputInfo);
-
-      final idleFor = (ticks - inputInfo.ref.dwTime);
-
-      if (idleFor > duration.inMilliseconds) {
+    _inputInfo.ref.cbSize = sizeOf<win32.LASTINPUTINFO>();
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
+      final idleFor = await getIdleDuration();
+      if (idleFor > duration) {
         if (_isIdle) return;
         _isIdle = true;
         _controller.sink.add(true);

@@ -1,6 +1,6 @@
 name: system_idle
 description: A flutter package that detects if system is in idle state
-version: 1.0.0
+version: 1.1.0
 repository: https://github.com/unitedideasco/system_idle.git
 
 homepage: https://github.com/unitedideasco/
@@ -13,12 +13,9 @@ dependencies:
   flutter:
     sdk: flutter
   path: ^1.8.2
-  watcher: ^1.0.2
   win32: ^5.5.1
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
   flutter_lints: ^4.0.0
 
 # For information on the generic Dart part of this file, see the
