@@ -61,8 +61,10 @@ class SystemIdleCheckerLinux extends SystemIdleChecker {
   @override
   Future<Duration> getIdleDuration() async {
     final file = File(_idleTimePath);
+    file.createSync();
     final contents = await file.readAsString();
-    final seconds = int.parse(contents);
+    final seconds = int.tryParse(contents);
+    if (seconds == null) return Duration.zero;
     return Duration(seconds: seconds);
   }
 
