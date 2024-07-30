@@ -6,7 +6,7 @@ void main() async {
   final plugin = SystemIdleWindows();
   await plugin.initialize();
   plugin.onIdleChanged(idleDuration: Duration(seconds: 5))
-    .listen((isIdle) => stdout.write(isIdle ? "\rUser is idle!" : "\rUser is active again!"));
+    .listen((isIdle) => stdout.write(isIdle ? "\rUser is idle!\n\n" : "\rUser is active again!\n\n"));
   print("\n");
   while (true) {
     final idleDuration = await plugin.getIdleDuration();
