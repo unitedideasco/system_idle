@@ -11,7 +11,10 @@ void main() async {
   print("\n");
   while (true) {
     final idleDuration = await plugin.getIdleDuration();
-    stdout.write("\rUse has been idle for ${idleDuration.inSeconds} seconds. Is idle? $isIdle");
+    final message = "User has been idle for ${idleDuration.inSeconds} seconds. Is idle? $isIdle";
+    final paddedMessage = message.padRight(message.length + 5);
+    stdout.write("\r$paddedMessage");
+    stdout.flush();
     await Future<void>.delayed(const Duration(milliseconds: 500));
   }
 }

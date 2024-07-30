@@ -25,7 +25,10 @@ mixin SystemIdleTimer on SystemIdlePlatformInterface {
     onResume: _startListening,
   );
 
-  void _startListening() => _timer = Timer.periodic(_idleDuration, _checkIdle);
+  void _startListening() => _timer = Timer.periodic(
+    const Duration(seconds: 1),
+    _checkIdle,
+  );
 
   void _stopListening() {
     _timer?.cancel();
