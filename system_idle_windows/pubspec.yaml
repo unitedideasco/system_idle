@@ -1,0 +1,18 @@
+name: system_idle_windows
+description: A Windows package to determine if the user has been idle from their device
+version: 1.0.0
+repository: https://github.com/unitedideasco/system_idle
+
+environment:
+  sdk: ^3.4.4
+
+dependencies:
+  ffi: ^2.1.2
+  system_idle_platform_interface: ^1.0.0
+  win32: ^5.5.1
+
+dependency_overrides:
+  system_idle_platform_interface:
+    path: ../system_idle_platform_interface
+
+dev_dependencies:
