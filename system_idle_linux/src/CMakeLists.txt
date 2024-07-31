@@ -3,10 +3,10 @@
 # the plugin to fail to compile for some customers of the plugin.
 cmake_minimum_required(VERSION 3.10)
 
-project(system_idle_linux_library VERSION 0.0.1 LANGUAGES C)
+project(system_idle_linux_library VERSION 1.0.0 LANGUAGES CXX)
 
 add_library(system_idle_linux SHARED
-  "system_idle_linux.c"
+  "system_idle_linux.cpp"
 )
 
 set_target_properties(system_idle_linux PROPERTIES
