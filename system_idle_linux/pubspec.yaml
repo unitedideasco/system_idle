@@ -16,6 +16,14 @@ dependency_overrides:
 dev_dependencies:
   ffigen: ^13.0.0
 
+flutter:
+  plugin:
+    implements: system_idle
+    platforms:
+      linux:
+        dartPluginClass: SystemIdleLinux
+        ffiPlugin: true
+
 ffigen:
   output: lib/src/bindings.dart
   name: SystemIdleBindings

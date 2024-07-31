@@ -16,3 +16,10 @@ dependency_overrides:
     path: ../system_idle_platform_interface
 
 dev_dependencies:
+
+flutter:
+  plugin:
+    implements: system_idle
+    platforms:
+      windows:
+        dartPluginClass: SystemIdleWindows
