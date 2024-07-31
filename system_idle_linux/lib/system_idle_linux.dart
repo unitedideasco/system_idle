@@ -5,7 +5,7 @@ import "package:system_idle_platform_interface/system_idle_platform_interface.da
 import "src/bindings.dart";
 
 class SystemIdleLinux extends SystemIdlePlatformInterface with SystemIdleTimer {
-  static late final _library = DynamicLibrary.open("dist/system_idle_linux.so");
+  static late final _library = DynamicLibrary.open("system_idle_linux.so");
   static late final _bindings = SystemIdleBindings(_library);
   Pointer<NativePlugin> _plugin = nullptr;
 

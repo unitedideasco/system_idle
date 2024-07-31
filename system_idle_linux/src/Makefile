@@ -1,11 +1,7 @@
 all:
 	mkdir -p ../dist
-	g++ -fPIC ffi_api.cpp -c -o ffi_api.o
-	g++ -fPIC ffi_api.o -shared -o ../dist/system_idle_linux.so -lxcb -lxcb-screensaver
-
-# test: all
-# 	g++ main.cpp -c main.o
-# 	g++ main.o
+	g++ -fPIC system_idle_linux.cpp -c -o system_idle_linux.o
+	g++ -fPIC system_idle_linux.o -shared -o ../dist/system_idle_linux.so -lxcb -lxcb-screensaver
 
 clean:
 	rm -f *.o ../dist/*.so
