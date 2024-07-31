@@ -21,7 +21,6 @@ flutter:
     implements: system_idle
     platforms:
       linux:
-        dartPluginClass: SystemIdleLinux
         ffiPlugin: true
 
 ffigen:
