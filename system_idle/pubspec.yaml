@@ -16,16 +16,6 @@ dependencies:
   system_idle_macos: ^1.0.0
   system_idle_windows: ^1.0.0
 
-flutter:
-  plugin:
-    platforms:
-      linux:
-        default_package: system_idle_linux
-      macos:
-        default_package: system_idle_macos
-      windows:
-        default_package: system_idle_windows
-
 dependency_overrides:
   system_idle_platform_interface:
     path: ../system_idle_platform_interface
@@ -45,13 +35,12 @@ dev_dependencies:
 flutter:
   plugin:
     platforms:
-      macos:
-        pluginClass: SystemIdlePlugin
-        dartPluginClass: SystemIdle
-      windows:
-        dartPluginClass: SystemIdle
       linux:
-        dartPluginClass: SystemIdle
+        default_package: system_idle_linux
+      macos:
+        default_package: system_idle_macos
+      windows:
+        default_package: system_idle_windows
 
   # To add assets to your package, add an assets section, like this:
   # assets:
