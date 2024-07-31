@@ -9,14 +9,24 @@ environment:
   sdk: ">=2.17.0 <4.0.0"
 
 dependencies:
-  ffi: ^2.1.2
   flutter:
     sdk: flutter
-  path: ^1.8.2
-  win32: ^5.5.1
+  system_idle_platform_interface: ^1.0.0
+  system_idle_linux: ^1.0.0
+  system_idle_macos: ^1.0.0
+  system_idle_windows: ^1.0.0
+
+dependency_overrides:
+  system_idle_platform_interface:
+    path: ../system_idle_platform_interface
+  system_idle_linux:
+    path: ../system_idle_linux
+  system_idle_windows:
+    path: ../system_idle_windows
+  system_idle_macos:
+    path: ../system_idle_macos
 
 dev_dependencies:
-  flutter_lints: ^4.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
