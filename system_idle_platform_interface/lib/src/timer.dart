@@ -18,11 +18,9 @@ mixin SystemIdleTimer on SystemIdlePlatformInterface {
   // - [_checkIdle] uses this, but it will only be called after [_startListening].
   late Duration _idleDuration;
 
-  late final _controller = StreamController<bool>(
+  late final _controller = StreamController<bool>.broadcast(
     onListen: _startListening,
     onCancel: _stopListening,
-    onPause: _stopListening,
-    onResume: _startListening,
   );
 
   void _startListening() => _timer = Timer.periodic(

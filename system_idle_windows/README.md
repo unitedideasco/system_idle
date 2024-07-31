@@ -1,39 +1,40 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# system_idle_windows
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+The Windows implementation of [`system_idle`](https://pub.dev/packages/system_idle). Since this
+package uses FFI, it can be used in any Windows device with or without Flutter. If you are using
+Flutter, simply import `package:system_idle` and this package will be included for you.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+### Usage
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
+First, initialize the plugin:
 ```dart
-const like = 'sample';
+// Flutter apps:
+import "package:system_idle/system_idle.dart";
+// Non-Flutter apps:
+import "package:system_idle_windows/system_idle_windows.dart";
+
+// Flutter apps:
+final plugin = SystemIdle();
+// Non-Flutter apps:
+final plugin = SystemIdleWindows();
+
+await plugin.init();
 ```
 
-## Additional information
+Then you can check how long the user has been idle for:
+```dart
+final duration = await plugin.getIdleDuration();
+print("The user has been idle for ${duration.inSeconds} seconds");
+```
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+Or request a stream for one-off events:
+```dart
+plugin.onIdleChanged(idleDuration: Duration(seconds: 5)).listen(_onIdleChanged);
+
+void _onIdleChanged(bool isIdle) => isIdle
+  ? print("The user has been idle for at least 5 seconds")
+  : print("The user is no longer idle!");
+```
+
+When you are done, be sure to call `dispose`, after which any streams obtained
+by `onIdleChanged` will stop emitting events.

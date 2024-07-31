@@ -1,6 +1,6 @@
 import "dart:io";
 
-import 'package:system_idle_windows/system_idle_windows.dart';
+import "package:system_idle_windows/system_idle_windows.dart";
 
 void main() async {
   final plugin = SystemIdleWindows();
