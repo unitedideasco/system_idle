@@ -3,7 +3,7 @@
 # Run `pod lib lint system_idle.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'system_idle'
+  s.name             = 'system_idle_macos'
   s.version          = '1.0.0'
   s.summary          = 'A plugin to determine when and for how long the user idles.'
   s.description      = <<-DESC
