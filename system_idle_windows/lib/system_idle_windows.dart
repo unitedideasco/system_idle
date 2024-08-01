@@ -6,6 +6,8 @@ import "package:ffi/ffi.dart";
 import "package:win32/win32.dart" as win32;
 
 class SystemIdleWindows extends SystemIdlePlatformInterface with SystemIdleTimer {
+  static void registerWith() { /* Left blank for Flutter to call */ }
+
   final _arena = Arena();
   late final _inputInfo = _arena<win32.LASTINPUTINFO>();
 
