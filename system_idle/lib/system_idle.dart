@@ -5,39 +5,18 @@ import "package:system_idle_macos/system_idle_macos.dart";
 import "package:system_idle_platform_interface/system_idle_platform_interface.dart";
 import "package:system_idle_windows/system_idle_windows.dart";
 
-class SystemIdle extends SystemIdlePlatformInterface {
-  factory SystemIdle() {
+abstract class SystemIdle extends SystemIdlePlatformInterface {
+  static SystemIdlePlatformInterface forPlatform() {
     if (Platform.isLinux) {
-      return SystemIdle._(SystemIdleLinux.forWindowManager());
+      return SystemIdleLinux.forWindowManager();
     } else if (Platform.isMacOS) {
-      return SystemIdle._(SystemIdleMacOS());
+      return SystemIdleMacOS();
     } else if (Platform.isWindows) {
-      return SystemIdle._(SystemIdleWindows());
+      return SystemIdleWindows();
     } else {
       throw UnsupportedError("Unsupported platform: ${Platform.operatingSystem}");
     }
   }
-
-  SystemIdlePlatformInterface _instance;
-  SystemIdle._(this._instance);
-
-  @override
-  bool get isSupported => _instance.isSupported;
-
-  @override
-  Future<void> initialize() => _instance.initialize();
-
-  @override
-  Future<Duration?> getIdleDuration() => _instance.getIdleDuration();
-
-  @override
-  Future<void> dispose() async {
-    _instance.dispose();
-    await super.dispose();
-  }
-
-  @override
-  Stream<bool> onIdleChanged({required Duration idleDuration}) => _instance.onIdleChanged(idleDuration: idleDuration);
 }
 
 extension SystemIdleUtils on SystemIdlePlatformInterface {

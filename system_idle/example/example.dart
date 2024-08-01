@@ -3,7 +3,7 @@ import "dart:async";
 import "package:flutter/material.dart";
 import "package:system_idle/system_idle.dart";
 
-final plugin = SystemIdle();
+final plugin = SystemIdle.forPlatform();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
