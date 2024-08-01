@@ -22,16 +22,3 @@ flutter:
     platforms:
       linux:
         ffiPlugin: true
-
-ffigen:
-  output: lib/src/bindings.dart
-  name: SystemIdleBindings
-  description: |
-    Provides bindings to the XCB-based idle detection
-
-    To regenerate, run dart run ffigen
-  headers:
-    entry-points:
-      - src/ffi_api.h
-    include-directives:
-      - src/ffi_api.h

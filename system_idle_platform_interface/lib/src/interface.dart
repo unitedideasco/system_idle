@@ -21,5 +21,7 @@ abstract class SystemIdlePlatformInterface {
   Stream<bool> onIdleChanged({required Duration idleDuration});
 
   /// Returns how long the user has been idle for already.
-  Future<Duration> getIdleDuration();
+  Future<Duration?> getIdleDuration();
+
+  bool get isSupported => true;
 }

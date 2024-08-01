@@ -33,6 +33,9 @@ mixin SystemIdleTimer on SystemIdlePlatformInterface {
     _timer = null;
   }
 
+  @override
+  Future<Duration> getIdleDuration();  // must be non-null
+
   Future<void> _checkIdle([_]) async {
     final duration = await getIdleDuration();
     final newIdleState = duration >= _idleDuration;

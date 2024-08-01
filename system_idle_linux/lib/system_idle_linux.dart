@@ -1,30 +1,19 @@
-import "dart:ffi";
+import "dart:io";
 
 import "package:system_idle_platform_interface/system_idle_platform_interface.dart";
 
-import "src/bindings.dart";
+import "src/x11.dart";
+import "src/wayland.dart";
 
-class SystemIdleLinux extends SystemIdlePlatformInterface with SystemIdleTimer {
-  static late final _library = DynamicLibrary.open("libsystem_idle_linux.so");
-  static late final _bindings = SystemIdleBindings(_library);
-  Pointer<NativePlugin> _plugin = nullptr;
+const _pluginConstructors = <String, SystemIdlePlatformInterface Function()>{
+  "x11": SystemIdleX11.new,
+  "wayland": SystemIdleWayland.new,
+};
 
-  @override
-  Future<void> initialize() async {
-    _plugin = _bindings.createPlugin();
-    _bindings.initPlugin(_plugin);
-  }
-
-  @override
-  Future<void> dispose() async {
-    if (_plugin != nullptr) _bindings.freePlugin(_plugin);
-    await super.dispose();
-  }
-
-  @override
-  Future<Duration> getIdleDuration() async {
-    if (_plugin == nullptr) throw StateError("You must call SystemIdleLinux.init() before getIdleDuration()");
-    final ms = _bindings.getIdleTime(_plugin);
-    return Duration(milliseconds: ms);
+abstract class SystemIdleLinux extends SystemIdlePlatformInterface {
+  static SystemIdlePlatformInterface forWindowManager() {
+    final windowManager = Platform.environment["XDG_SESSION_TYPE"];
+    final constructor = _pluginConstructors[windowManager] ?? SystemIdleStub.new;
+    return constructor();
   }
 }

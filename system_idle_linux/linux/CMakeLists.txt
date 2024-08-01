@@ -17,6 +17,7 @@ add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../src" "${CMAKE_CURRENT_BINARY_DI
 set(system_idle_linux_bundled_libraries
   # Defined in ../src/CMakeLists.txt.
   # This can be changed to accommodate different builds.
-  $<TARGET_FILE:system_idle_linux>
+  $<TARGET_FILE:system_idle_linux_wayland>
+  $<TARGET_FILE:system_idle_linux_x11>
   PARENT_SCOPE
 )
