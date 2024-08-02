@@ -50,7 +50,7 @@ class WaylandPlugin {
       nullptr
     );
     wl_event_source_check(source);
-    return true;
+    return notifier != nullptr && seat != nullptr;
   }
 };
 

@@ -14,7 +14,7 @@ abstract class SystemIdle extends SystemIdlePlatformInterface {
     } else if (Platform.isWindows) {
       return SystemIdleWindows();
     } else {
-      throw UnsupportedError("Unsupported platform: ${Platform.operatingSystem}");
+      return SystemIdleStub();
     }
   }
 }
