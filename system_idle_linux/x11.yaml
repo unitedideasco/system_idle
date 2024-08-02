@@ -1,0 +1,13 @@
+# See package:ffigen: https://pub.dev/packages/ffigen
+
+output: lib/src/x11_bindings.dart
+name: SystemIdleX11Bindings
+description: |-  # | means keep newlines, - means strip trailing whitespace
+  Provides bindings to the XCB-based idle detection (`src/x11.h`)
+
+  To regenerate, run `dart run ffigen --config x11-ffigen.yaml`
+headers:
+  entry-points:
+    - src/x11.h
+  include-directives:
+    - src/x11.h
