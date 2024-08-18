@@ -1,8 +1,0 @@
-{
-  "files.associations": {
-    "*.service": "toml",
-    "iostream": "cpp",
-    "iosfwd": "cpp",
-    "new": "cpp"
-  }
-}

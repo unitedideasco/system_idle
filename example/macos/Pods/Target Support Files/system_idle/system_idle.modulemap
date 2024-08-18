@@ -1,0 +1,6 @@
+framework module system_idle {
+  umbrella header "system_idle-umbrella.h"
+
+  export *
+  module * { export * }
+}
