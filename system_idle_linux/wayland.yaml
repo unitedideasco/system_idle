@@ -1,0 +1,13 @@
+# See package:ffigen: https://pub.dev/packages/ffigen
+
+output: lib/src/wayland_bindings.dart
+name: SystemIdleWaylandBindings
+description: |-  # | means keep newlines, - means strip trailing whitespace
+  Provides bindings to the Wayland-based idle detection (`src/wayland.h`)
+
+  To regenerate, run `dart run ffigen --config wayland-ffigen.yaml`
+headers:
+  entry-points:
+    - src/wayland.h
+  include-directives:
+    - src/wayland.h
