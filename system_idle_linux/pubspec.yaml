@@ -5,15 +5,15 @@ repository: https://github.com/unitedideasco/system_idle.git
 homepage: https://github.com/unitedideasco/
 
 environment:
-  sdk: ^3.4.4
-  flutter: '>=3.3.0'
+  sdk: ^3.5.0
+  flutter: ^3.24.0
 
 # Add regular dependencies here.
 dependencies:
   system_idle_platform_interface: ^1.0.0
 
 dev_dependencies:
-  ffigen: ^13.0.0
+  ffigen: ^15.0.0
 
 flutter:
   plugin:

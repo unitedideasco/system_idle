@@ -5,7 +5,7 @@ repository: https://github.com/unitedideasco/system_idle.git
 homepage: https://github.com/unitedideasco/
 
 environment:
-  sdk: ^3.4.3
+  sdk: ^3.5.0
 
 # Add regular dependencies here.
 dependencies:
