@@ -1,5 +1,6 @@
 import "interface.dart";
 
+/// An implementation of system_idle for devices that don't support it.
 class SystemIdleStub extends SystemIdlePlatformInterface {
   @override
   Future<void> initialize() async { }
@@ -11,5 +12,5 @@ class SystemIdleStub extends SystemIdlePlatformInterface {
   Future<Duration?> getIdleDuration() async => null;
 
   @override
-  Stream<bool> onIdleChanged({required Duration idleDuration}) => Stream.empty(broadcast: true);
+  Stream<bool> onIdleChanged({required Duration idleDuration}) => const Stream.empty();
 }

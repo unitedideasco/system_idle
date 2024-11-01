@@ -5,12 +5,14 @@ import "package:system_idle_platform_interface/system_idle_platform_interface.da
 
 import "x11_bindings.dart";
 
+/// An implementation of system_idle for X11-based Linux systems.
 class SystemIdleX11 extends SystemIdlePlatformInterface with SystemIdleTimer {
   final String _libraryPath;
   late final _library = DynamicLibrary.open(_libraryPath);
   late final _bindings = SystemIdleX11Bindings(_library);
   Pointer<X11Plugin> _plugin = nullptr;
 
+  /// Opens the X11 binaries on Linux.
   SystemIdleX11({String libraryPath = "libsystem_idle_linux_x11.so"}) :
     _libraryPath = libraryPath;
 

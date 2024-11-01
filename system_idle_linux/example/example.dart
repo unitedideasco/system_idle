@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import "dart:io";
 
 import "package:system_idle_linux/system_idle_linux.dart";
@@ -9,8 +11,8 @@ void main() async {
     print("This distribution does not support idle detection");
     return;
   }
-  bool isIdle = false;
-  plugin.onIdleChanged(idleDuration: Duration(seconds: 5))
+  var isIdle = false;
+  plugin.onIdleChanged(idleDuration: const Duration(seconds: 5))
     .listen((value) => isIdle = value);
   print("\n");
   while (true) {
@@ -20,7 +22,7 @@ void main() async {
     final message = "$timeMessage $idleMessage";
     final paddedMessage = message.padRight(message.length + 5);
     stdout.write("\r$paddedMessage");
-    stdout.flush();
+    await stdout.flush();
     await Future<void>.delayed(const Duration(milliseconds: 500));
   }
 }

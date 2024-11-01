@@ -5,6 +5,7 @@ import "package:system_idle_platform_interface/system_idle_platform_interface.da
 
 import "wayland_bindings.dart";
 
+/// An implementation of system_idle for Wayland-based Linux systems.
 class SystemIdleWayland extends SystemIdlePlatformInterface {
   final String _libraryPath;
   late final _library = DynamicLibrary.open(_libraryPath);
@@ -14,6 +15,7 @@ class SystemIdleWayland extends SystemIdlePlatformInterface {
     onCancel: () => _isListening = false,
   );
 
+  /// Opens the wayland binaries on Linux.
   SystemIdleWayland({String libraryPath = "libsystem_idle_linux_wayland.so"}) :
     _libraryPath = libraryPath;
 
@@ -29,7 +31,7 @@ class SystemIdleWayland extends SystemIdlePlatformInterface {
     final callback = NativeCallable<IdleCallbackFunction>.listener(_handleIdleEvent);
     _plugin = _bindings.createPlugin();
     isSupported = _bindings.initPlugin(_plugin, callback.nativeFunction);
-    _pollTimer = Timer.periodic(Duration(seconds: 1), (_) => _bindings.pollEvents(_plugin));
+    _pollTimer = Timer.periodic(const Duration(seconds: 1), (_) => _bindings.pollEvents(_plugin));
   }
 
   @override
