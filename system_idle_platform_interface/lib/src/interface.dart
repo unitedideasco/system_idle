@@ -21,7 +21,10 @@ abstract class SystemIdlePlatformInterface {
   Stream<bool> onIdleChanged({required Duration idleDuration});
 
   /// Returns how long the user has been idle for already.
+  ///
+  /// A null value means the platform does not support this feature.
   Future<Duration?> getIdleDuration();
 
+  /// Whether idle detection is supported on this device.
   bool get isSupported => true;
 }

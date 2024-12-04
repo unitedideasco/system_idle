@@ -3,6 +3,7 @@ import "dart:async";
 import "package:flutter/services.dart";
 import "package:system_idle_platform_interface/system_idle_platform_interface.dart";
 
+/// An implementation of the system_idle plugin for MacOS.
 class SystemIdleMacOS extends SystemIdlePlatformInterface with SystemIdleTimer {
   static const _channel = MethodChannel("unitedideas.co/system_idle");
 

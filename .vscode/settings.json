@@ -4,5 +4,10 @@
     "iostream": "cpp",
     "iosfwd": "cpp",
     "new": "cpp"
-  }
+  },
+  "cSpell.words": [
+    "LASTINPUTINFO",
+    "libsystem",
+    "unitedideas"
+  ]
 }

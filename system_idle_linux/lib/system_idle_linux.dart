@@ -10,7 +10,9 @@ const _pluginConstructors = <String, SystemIdlePlatformInterface Function()>{
   "wayland": SystemIdleWayland.new,
 };
 
+/// An implementation of the system_idle plugin for Linux (Wayland and X11).
 abstract class SystemIdleLinux extends SystemIdlePlatformInterface {
+  /// Determines which Window manager to work with. Only Wayland and X11 are supported.
   static SystemIdlePlatformInterface forWindowManager() {
     final windowManager = Platform.environment["XDG_SESSION_TYPE"];
     final constructor = _pluginConstructors[windowManager] ?? SystemIdleStub.new;

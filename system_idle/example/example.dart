@@ -25,8 +25,8 @@ class HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _sub = plugin.onIdleChanged(idleDuration: Duration(seconds: 3)).listen(_onIdleChanged);
-    _timer = Timer.periodic(Duration(seconds: 1), _checkTime);
+    _sub = plugin.onIdleChanged(idleDuration: const Duration(seconds: 3)).listen(_onIdleChanged);
+    _timer = Timer.periodic(const Duration(seconds: 1), _checkTime);
   }
 
   @override
@@ -37,22 +37,22 @@ class HomePageState extends State<HomePage> {
   }
 
   void _onIdleChanged(bool value) => setState(() => isIdle = value);
-  void _checkTime(Timer timer) async {
+  Future<void> _checkTime(Timer timer) async {
     final idleDuration = await plugin.getIdleDuration();
     setState(() => duration = idleDuration);
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text("Idle detector demo")),
+    appBar: AppBar(title: const Text("Idle detector demo")),
     body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (!plugin.isSupported) ...[
-            Text("Idle detection is not supported on your device"),
+            const Text("Idle detection is not supported on your device"),
           ] else ...[
-            if (duration == null) Text("Your device does not support checking how long the user is idle")
+            if (duration == null) const Text("Your device does not support checking how long the user is idle")
             else Text("The user has been idle for: ${duration!.inSeconds} seconds"),
             Text("The user is ${isIdle ? "" : "not "}idle"),
           ],
