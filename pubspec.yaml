@@ -1,8 +1,7 @@
 name: system_idle_repo
-description: A sample command-line application.
+description: A plugin for checking system idle time.
 version: 1.0.0
 repository: https://github.com/unitedideasco/system_idle
-publish_to: none
 
 environment:
   sdk: ^3.4.4
