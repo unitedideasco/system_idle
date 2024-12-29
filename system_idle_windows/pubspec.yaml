@@ -5,8 +5,9 @@ repository: https://github.com/unitedideasco/system_idle
 
 environment:
   sdk: ^3.5.0
-  flutter: ^3.24.0
+  flutter: '>= 3.24.0'
 
+resolution: workspace
 dependencies:
   ffi: ^2.1.2
   system_idle_platform_interface: ^1.0.0

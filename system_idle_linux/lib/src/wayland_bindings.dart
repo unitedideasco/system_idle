@@ -97,6 +97,6 @@ class SystemIdleWaylandBindings {
 
 final class WaylandPlugin extends ffi.Opaque {}
 
-typedef IdleCallback = ffi.Pointer<ffi.NativeFunction<IdleCallbackFunction>>;
 typedef IdleCallbackFunction = ffi.Void Function(ffi.Bool isIdle);
 typedef DartIdleCallbackFunction = void Function(bool isIdle);
+typedef IdleCallback = ffi.Pointer<ffi.NativeFunction<IdleCallbackFunction>>;
