@@ -1,5 +1,5 @@
 name: system_idle_linux
-description: A starting point for Dart libraries or applications.
+description: The Linux implementation of the system_idle package to determine when the user has been idle.
 version: 1.0.0
 repository: https://github.com/unitedideasco/system_idle.git
 homepage: https://github.com/unitedideasco/
