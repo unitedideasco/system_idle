@@ -5,11 +5,18 @@ repository: https://github.com/unitedideasco/system_idle
 publish_to: none
 
 environment:
-  sdk: ^3.4.4
+  sdk: ^3.5.0
 
 # Add regular dependencies here.
 dependencies:
   # path: ^1.8.0
 
 dev_dependencies:
-  very_good_analysis: ^6.0.0
+  very_good_analysis: ^7.0.0
+
+workspace:
+  - system_idle
+  - system_idle_linux
+  - system_idle_macos
+  - system_idle_platform_interface
+  - system_idle_windows

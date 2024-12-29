@@ -1,3 +1,4 @@
+// Okay to print in a test script.
 // ignore_for_file: avoid_print
 
 import "dart:io";
